@@ -1,6 +1,29 @@
 ---
+declared-services: 
+  my_db: 
+    label: compose-for-mysql 
+    plan: Standard 
+    
+buildpack: https://github.com/cloudfoundry/java-buildpack.git
+
 applications:
 - name: hello-spring-cloud
   instances: 1
   host: hello-spring-cloud-${random-word}
   path: target/hello-spring-cloud-0.0.1.BUILD-SNAPSHOT.jar
+  services:
+    - my_db  
+  
+env:
+    # From Approach 2 - http://www.java-allandsundry.com/2016/05/approaches-to-binding-spring-boot.html
+    
+    JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{ enabled: false }'
+    
+    # Add the certificate from VCAP_SERVICES ca_certificate_base64
+    # You need to base64 decode the certificate and add it below
+    # E.g. echo '<<ca_certificate_base64>>' | base64 -D
+    
+    TRUSTED_CA_CERTIFICATE: |-
+        -----BEGIN CERTIFICATE-----
+        changeme
+        -----END CERTIFICATE-----
