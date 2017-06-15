@@ -5,8 +5,8 @@ A Cloud Foundry Spring application that connects to IBM Compose MySQL over SSL.
 
 ## Configure
 
-- Add your Compose MySQL `TRUSTED_CA_CERTIFICATE` to manifest.yml
-- Add your Compose MySQL `url`, `username`, and `password` to src/main/resources/application.yml
+- Add your Compose MySQL `TRUSTED_CA_CERTIFICATE` to [manifest.yml](./manifest.yml)
+- Add your Compose MySQL `url`, `username`, and `password` to [src/main/resources/application.yml](./src/main/resources/application.yml)
 
 ## Building the application
 
