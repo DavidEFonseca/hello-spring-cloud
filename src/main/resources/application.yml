@@ -1,6 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:mysql://changeme:changeme/compose?useSSL=true&requireSSL=true&verifyServerCertificate=true
-    username: changeme
-    password: changeme
-    driver-class-name: com.mysql.jdbc.Driver

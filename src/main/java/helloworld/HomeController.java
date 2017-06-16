@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -65,7 +67,26 @@ public class HomeController {
             }
             URI url = new URI(urlString);
             
-            return new URI(url.getScheme(), null, url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getFragment()).toString();
+           String[] query = url.getQuery().split("&");
+           
+           List<String> allowedPairs = new ArrayList<String>();
+           allowedPairs.add("USESSL");
+           allowedPairs.add("REQUIRESSL");
+           allowedPairs.add("VERIFYUSERCERTIFICATE");
+           
+           String allowedQuery = "";
+           for (String pair : query) {
+        	   String[] kv = pair.split("=");
+        	   if (allowedPairs.contains(kv[0].toUpperCase())) {
+        		   if (allowedQuery.equals("")) {
+        			   allowedQuery = kv[0] + "=" + kv[1];
+        		   } else {
+        			   allowedQuery = allowedQuery + "&" + kv[0] + "=" + kv[1];
+        		   }
+        	   }
+           }
+            
+            return new URI(url.getScheme(), null, url.getHost(), url.getPort(), url.getPath(), allowedQuery, url.getFragment()).toString();
         }
         catch (URISyntaxException e) {
             System.out.println(e);

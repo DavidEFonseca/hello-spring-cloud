@@ -14,16 +14,3 @@ applications:
   services:
     - my_db  
   
-env:
-    # From Approach 2 - http://www.java-allandsundry.com/2016/05/approaches-to-binding-spring-boot.html
-    
-    JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{ enabled: false }'
-    
-    # Add the certificate from VCAP_SERVICES ca_certificate_base64
-    # You need to base64 decode the certificate and add it below
-    # E.g. echo '<<ca_certificate_base64>>' | base64 -D
-    
-    TRUSTED_CA_CERTIFICATE: |-
-        -----BEGIN CERTIFICATE-----
-        changeme
-        -----END CERTIFICATE-----
