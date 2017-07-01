@@ -36,6 +36,7 @@ public class Application {
     	
     	List<String> certs = new ArrayList<String>();
     	for (String base64cert : base64certs) {
+    		// FIXME this doesn't work on Java 7 - use apache commons instead
     		certs.add(new String(DatatypeConverter.parseBase64Binary(base64cert)));
     	}
     	
