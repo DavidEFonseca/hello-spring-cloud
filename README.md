@@ -21,3 +21,21 @@ $ cf push
 
 The application will be deployed using settings in the provided `manifest.yml` file. The output from the command will show the URL that has been assigned to the application. Browse to the provided URL to view information about the application.
 
+## SSL Certificates
+
+Compose SSL Certificates need to be loaded into the Cloud Foundry runtime on Bluemix.  This is performed automatically by adding the following to your pom.xml:
+
+```
+<repositories>
+   <repository>
+     <id>jitpack.io</id>
+     <url>https://jitpack.io</url>
+   </repository>
+</repositories>
+
+<dependency>
+   <groupId>com.github.snowch</groupId>
+   <artifactId>spring-boot-ssl-truststore-gen</artifactId>
+   <version>master</version>
+</dependency>
+```
