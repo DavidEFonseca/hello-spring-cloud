@@ -53,17 +53,11 @@ public class ComposeForMySqlServiceSSLInfoCreator extends CloudFoundryServiceInf
             }
             Object base64cert = credentials.get("ca_certificate_base64");
             if (base64cert instanceof String) {
-            	trustCertificate((String)base64cert);
+            	//trustCertificate((String)base64cert);
             }
         }
         return new MysqlServiceInfo(id, uri+"?useSSL=true&requireSSL=true&verifyServerCertificate=true");
     }
     
-    private void trustCertificate(String base64cert) {
-    	String certificate = new String(DatatypeConverter.parseBase64Binary(base64cert));
-    	DefaultTrustStoreAppender trustStoreAppender = new DefaultTrustStoreAppender();
-        final TrustStoreInfo trustStoreInfo = trustStoreAppender.append(CertificateFactory.newInstance(certificate));
-        System.setProperty(SSL_TRUST_STORE_SYSTEM_PROPERTY, trustStoreInfo.getTrustStorefFile().getAbsolutePath());
-        System.setProperty(SSL_TRUST_STORE_PASSWORD_SYSTEM_PROPERTY, trustStoreInfo.getPassword());
-    }
+
 }

@@ -16,6 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jayway.jsonpath.JsonPath;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoIterable;
+
 @Controller
 public class HomeController {
 
@@ -35,6 +40,22 @@ public class HomeController {
    
     	model.addAttribute(
     			"mysql_url", toString(datasource)
+    			);
+    	
+    	// This is a quick hack to get the mongodb url
+    	String VCAP_SERVICES = System.getenv("VCAP_SERVICES");
+    	String url = JsonPath.read(VCAP_SERVICES, "$.compose-for-mongodb[0].credentials.uri");
+    	
+    	@SuppressWarnings("resource")
+		MongoClient client = new MongoClient(new MongoClientURI(url));
+    	MongoIterable<String> listDatabaseNames = client.listDatabaseNames();
+    	String dbs = "";
+    	for (String db : listDatabaseNames) {
+    		dbs = dbs + db;
+    	}
+
+    	model.addAttribute(
+    			"mongo_dbs", dbs
     			);
     	
         return "home";
