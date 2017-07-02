@@ -1,7 +1,7 @@
 Hello Spring Cloud
 ============
 
-A Cloud Foundry Spring application that connects to IBM Compose MySQL over SSL.
+A Cloud Foundry Spring application that connects to IBM Compose MySQL and MongoDB over SSL.
 
 ## Building the application
 
@@ -21,3 +21,19 @@ $ cf push
 
 The application will be deployed using settings in the provided `manifest.yml` file. The output from the command will show the URL that has been assigned to the application. Browse to the provided URL to view information about the application.
 
+## SSL certificate import
+
+This project uses https://github.com/snowch/spring-boot-ssl-truststore-gen/blob/master/README.md to setup the compose ssl certificates in the java runtime on Bluemix cloud foundry.  This is achieved simply by adding the following to the pom.xml:
+
+~~~
+<repository>
+  <id>jitpack.io</id>
+  <url>https://jitpack.io</url>
+</repository>
+		
+<dependency>
+  <groupId>com.github.snowch</groupId>
+  <artifactId>spring-boot-ssl-truststore-gen</artifactId>
+  <version>master</version>
+</dependency>
+~~~
