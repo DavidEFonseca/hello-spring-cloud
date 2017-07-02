@@ -1,6 +1,10 @@
 ---
 declared-services: 
-  my_db: 
+  my_mongodb: 
+    label: compose-for-mongodb 
+    plan: Standard 
+    
+  my_mysql: 
     label: compose-for-mysql 
     plan: Standard 
     
@@ -12,5 +16,6 @@ applications:
   host: hello-spring-cloud-${random-word}
   path: target/hello-spring-cloud-0.0.1.BUILD-SNAPSHOT.jar
   services:
-    - my_db  
+    - my_mongodb
+    - my_mysql
   
