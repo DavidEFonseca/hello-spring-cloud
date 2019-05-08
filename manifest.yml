@@ -9,7 +9,6 @@ buildpack: https://github.com/cloudfoundry/java-buildpack.git
 applications:
 - name: hello-spring-cloud
   instances: 1
-  host: hello-spring-cloud-${random-word}
   path: target/hello-spring-cloud-0.0.1.BUILD-SNAPSHOT.jar
   services:
     - my_db  
